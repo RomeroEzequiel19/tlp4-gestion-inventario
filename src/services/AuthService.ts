@@ -22,13 +22,11 @@ class AuthService {
     async login(user: ILogin) {
         // Desestructuración
         const { email, password } = user
-
         // Se obtiene el usuario
         const loginUser = await UserService.getUserByEmailAndPassword({email, password})
-
         // Se crea el token
         const token = await addJWT({user: loginUser.id})
-
+        // Retorno
         return token
     }
 

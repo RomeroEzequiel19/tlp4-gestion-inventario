@@ -1,5 +1,6 @@
 import { Hashing } from "../helpers/hash";
-import { ILogin, IRegister } from "../interface/AuthInterface";
+import { ILogin } from "../interface/AuthInterface";
+import { IUser } from "../interface/UserInterface";
 import User from "../models/User";
 
 class UserService {
@@ -9,8 +10,8 @@ class UserService {
         this.hashing = new Hashing()
     }
 
-    async getUserByEmailAndPassword({email, password}: ILogin): Promise<IRegister> {
-        const user = await User.findOne({email}) as IRegister
+    async getUserByEmailAndPassword({email, password}: ILogin): Promise<IUser> {
+        const user = await User.findOne({email}) as IUser
 
         if (!user) {
             throw new Error('Usuario no encontrado');
