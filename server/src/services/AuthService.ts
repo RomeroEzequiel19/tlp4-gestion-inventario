@@ -1,7 +1,7 @@
 import { Hashing } from "../helpers/hash"
 import { addJWT } from "../helpers/jsonwebtoken"
-import { ILogin, IRegister } from "../interface/AuthInterface"
-import User from "../models/User"
+import { ILogin } from "../interface/AuthInterface"
+import User, { IUser } from "../models/User"
 import UserService from "./UserService"
 
 class AuthService {
@@ -12,7 +12,7 @@ class AuthService {
         this.hashing = new Hashing()
     }
 
-    async register(user: IRegister) {
+    async register(user: IUser) {
         // Se hashea la contraseña
         const password = await this.hashing.hashPassword(user.password)
         const newUser = new User({ ...user, password })
@@ -20,12 +20,12 @@ class AuthService {
     }
 
     async login(user: ILogin) {
-        // Desestructuración
+        // Desestructuración+
         const { email, password } = user
         // Se obtiene el usuario
         const loginUser = await UserService.getUserByEmailAndPassword({email, password})
         // Se crea el token
-        const token = await addJWT({user: loginUser.id})
+        const token = await addJWT({user: loginUser.id,}   )
         // Retorno
         return token
     }

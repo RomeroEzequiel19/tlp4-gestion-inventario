@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { ICreateJWTResponse } from '../interface/AuthInterface';
+import { ICreateJWTResponse, Payload } from '../interface/AuthInterface';
 import { KEY } from '../config/conf';
 
-export const addJWT = (payload: {user: string}): Promise<ICreateJWTResponse> => {
+export const addJWT = (payload: Payload): Promise<ICreateJWTResponse> => {
   return new Promise((resolve, reject) => {
     jwt.sign(payload, KEY, (err, token) => {
       if (err) {

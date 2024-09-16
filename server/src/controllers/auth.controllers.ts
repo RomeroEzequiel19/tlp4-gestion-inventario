@@ -1,11 +1,12 @@
 import {Request, Response} from "express"
 import AuthService from "../services/AuthService"
-import { ILogin, IRegister } from "../interface/AuthInterface"
+import { ILogin } from "../interface/AuthInterface"
+import { IUser } from "../models/User"
 
 export const ctrlAuthRegister = async (req: Request, res: Response): Promise<Response> => {
     try {
         // Nos aseguramos que el cuerpo cumpla con la interfaz
-        const user: IRegister = req.body
+        const user: IUser = req.body
 
         await AuthService.register(user)
 
@@ -29,7 +30,10 @@ export const ctrlAuthLogin = async (req: Request, res: Response): Promise<Respon
         
         const token = await AuthService.login(user)
 
-        return res.status(200).json(token)
+        return res.status(200).json({
+            message: "Login correcto",
+            token
+        })
 
     } catch (error: any) {
         const statusCode = error.statusCode || 500;

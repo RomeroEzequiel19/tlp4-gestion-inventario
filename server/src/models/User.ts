@@ -1,18 +1,26 @@
-import { model, Schema } from "mongoose";
-import { IRegister } from "../interface/AuthInterface";
+import mongoose, { Schema, Document } from 'mongoose';
 
-const UserSchema = new Schema<IRegister>(
+// Interfaz para el Usuario
+export interface IUser extends Document {
+  username: string;
+  email: string;
+  password: string;
+  role: 'admin' | 'user';
+  done: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Esquema de Usuario
+const UserSchema: Schema = new Schema(
   {
-    username: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    done: { type: Boolean, default: false },
-    rol: { type: Number, default: 0 }
+    role: { type: String, enum: ['admin', 'user'], default: 'user' },
+    done: {type: Boolean, default: true}
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-// Exportación del modelo de usuario
-export default model<IRegister>("User", UserSchema);
+export default mongoose.model<IUser>('User', UserSchema);

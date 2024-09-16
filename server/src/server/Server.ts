@@ -4,6 +4,7 @@ import cors from "cors"
 import { PORT } from "../config/conf";
 import { dbConnect } from "../db/connect";
 import authRoutes from "../routes/auth.routes";
+import userRoutes from "../routes/user.routes";
 
 class Server {
     private app: Application;
@@ -12,8 +13,9 @@ class Server {
     constructor() {
         this.app = express()
         this.port = PORT;
-
         this.dbConnection()
+        this.middlewares()
+        this.routes()
     }
 
     async dbConnection() {
@@ -28,6 +30,7 @@ class Server {
 
     routes(): void {
         this.app.use("/api", authRoutes)
+        this.app.use("/api", userRoutes)
     }
 
     listen():void {

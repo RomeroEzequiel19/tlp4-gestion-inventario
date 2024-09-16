@@ -14,3 +14,7 @@ export interface ILogin {
 export interface ICreateJWTResponse {
     token: string;
 }
+
+export interface Payload {
+    user: string
+}
