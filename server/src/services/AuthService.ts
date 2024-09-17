@@ -20,7 +20,7 @@ class AuthService {
     }
 
     async login(user: ILogin) {
-        // Desestructuración+
+        // Desestructuración
         const { email, password } = user
         // Se obtiene el usuario
         const loginUser = await UserService.getUserByEmailAndPassword({email, password})

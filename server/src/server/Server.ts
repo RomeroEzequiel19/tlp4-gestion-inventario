@@ -5,6 +5,7 @@ import { PORT } from "../config/conf";
 import { dbConnect } from "../db/connect";
 import authRoutes from "../routes/auth.routes";
 import userRoutes from "../routes/user.routes";
+import deviceRoutes from "../routes/device.routes";
 
 class Server {
     private app: Application;
@@ -31,6 +32,7 @@ class Server {
     routes(): void {
         this.app.use("/api", authRoutes)
         this.app.use("/api", userRoutes)
+        this.app.use("/api", deviceRoutes)
     }
 
     listen():void {

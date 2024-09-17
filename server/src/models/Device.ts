@@ -2,12 +2,11 @@ import mongoose, { Schema, Document } from 'mongoose';
 import { IUser } from './User';
 
 // Interfaz para el Equipo
-export interface IDevice {
-  _id: string
+export interface IDevice extends Document{
   name: string;
   type: 'Laptop' | 'PC' | 'Monitor' | 'Impresora';
   brand: string;
-  model: string;
+  deviceModel: string;
   serialNumber: string;
   purchaseDate: Date;
   warrantyExpiration: Date;
@@ -28,7 +27,7 @@ const DeviceSchema: Schema = new Schema(
       required: true,
     },
     brand: { type: String, required: true },
-    model: { type: String, required: true },
+    deviceModel: { type: String, required: true },
     serialNumber: { type: String, required: true, unique: true },
     purchaseDate: { type: Date, required: true },
     warrantyExpiration: { type: Date, required: true },

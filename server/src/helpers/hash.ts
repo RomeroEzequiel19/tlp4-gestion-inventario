@@ -12,6 +12,6 @@ export class Hashing {
 
     // Comparar
     async comparePasswords(password: string, hashedPassword: string): Promise<boolean> {
-        return await bcrypt.compare(password, hashedPassword);
+      return await bcrypt.compare(password, hashedPassword);
     }
 }
