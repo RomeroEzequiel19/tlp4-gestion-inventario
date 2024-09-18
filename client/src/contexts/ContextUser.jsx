@@ -1,53 +1,68 @@
-import axios from "axios";
-import { createContext, useContext, useReducer } from "react";
-import { userReducer } from "../reducers/UserReducer";
-import { ACTIONS } from "../types/type";
+import { createContext, useReducer } from "react";
+import { UserReducer } from "../reducers/UserReducer";
+import { typeList } from "../types/type";
+import { fetchUser } from "../services/UserService";
 
-const UserContext = createContext();
-
-const initialState = {
-    users: [],
-    loading: true,
-    error: null
-};
+export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(userReducer, initialState);
+  // UseReducer para almacenar los usuarios
+  const [users, dispatchUser] = useReducer(UserReducer, []);
 
-    const fetchUsers = async () => {
-        dispatch({ type: ACTIONS.SET_LOADING });
-        try {
-            const response = await axios.get(`${SERVER_PATH.URL_PATH}/api/users`);
-            console.log("DATOSSS: ", response)
-            dispatch({ type: ACTIONS.FETCH_USERS_SUCCESS, payload: response.data });
-        } catch (error) {
-            dispatch({ type: ACTIONS.FETCH_USERS_ERROR, payload: 'Error al obtener usuarios' });
-        }
-    };
+  const handleDone = (id) => {
+    dispatchUser({
+      type: typeList.LIST_DELETE,
+      payload: id,
+    });
+  };
 
-    const addUser = async (user) => {
-        try {
-            const response = await axios.post(`${SERVER_PATH.URL_PATH}/api/users`, user);
-            dispatch({ type: ACTIONS.ADD_USER_SUCCESS, payload: response.data });
-        } catch (error) {
-            dispatch({ type: ACTIONS.FETCH_USERS_ERROR, payload: 'Error al agregar usuario' });
-        }
-    };
+  const agregateUser = (data) => {
+    dispatchUser({
+      type: typeList.LIST,
+      payload: data,
+    });
+  };
 
-    const deleteUser = async (userId) => {
-        try {
-            await axios.delete(`${SERVER_PATH.URL_PATH}/api/users/${userId}`);
-            dispatch({ type: ACTIONS.DELETE_USER_SUCCESS, payload: userId });
-        } catch (error) {
-            dispatch({ type: ACTIONS.FETCH_USERS_ERROR, payload: 'Error al eliminar usuario' });
-        }
-    };
+  const editUser = (data) => {
+    dispatchUser({
+      type: typeList.LIST_UPDATE,
+      payload: data,
+    });
+  };
 
-    return (
-        <UserContext.Provider value={{ state, fetchUsers, addUser, deleteUser }}>
-            {children}
-        </UserContext.Provider>
-    );
+  const createUser = (data) => {
+    dispatchUser({
+      type: typeList.LIST_ADD,
+      payload: data,
+    });
+  };
+
+  const fetchData = async () => {
+    try {
+      const data = await fetchUser(
+        "api/users",
+        "GET",
+        localStorage.getItem("token")
+      );
+      agregateUser(data);
+      console.log(users);
+    } catch (error) {
+      console.error("Error al obtener datos del servidor:", error);
+    }
+  };
+
+  return (
+    <UserContext.Provider
+      value={{
+        users,
+        handleDone,
+        agregateUser,
+        editUser,
+        createUser,
+        fetchData,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };
-
-export const useUsers = () => useContext(UserContext);
