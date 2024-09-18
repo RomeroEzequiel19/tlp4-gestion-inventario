@@ -23,7 +23,7 @@ export const AdminDashboard = () => {
                 <div className="card-body">
                   <h5 className="card-title">Dispositivos</h5>
                   <p className="card-text">Aquí puedes gestionar los dispositivos.</p>
-                  <button className="btn btn-primary">Ver</button>
+                  <Link className="btn btn-primary" to="/devices">Ver</Link>
                 </div>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import { AuthProvider } from "./contexts/ContextAuth";
+import { DeviceProvider } from "./contexts/ContextDevice";
 import { UserProvider } from "./contexts/ContextUser";
 import { AppRoutes } from "./routes/AppRoutes";
 
@@ -6,7 +7,9 @@ function App() {
   return (
     <AuthProvider>
       <UserProvider>
-        <AppRoutes />
+        <DeviceProvider>
+          <AppRoutes />
+        </DeviceProvider>
       </UserProvider>
     </AuthProvider>
   );

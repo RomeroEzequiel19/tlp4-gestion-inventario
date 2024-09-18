@@ -57,7 +57,7 @@ class DeviceController {
     async ctrlDeleteDevice(req: Request, res: Response): Promise<Response> {
         try {
             await DeviceService.deleteDevice(req.params.id);
-            return res.status(204).json({message: "Eliminado correctamente"});
+            return res.status(201).json({message: "Eliminado correctamente"});
         } catch (error) {
             return res.status(400).json({ message: "Error interno en el servidor" });
         }

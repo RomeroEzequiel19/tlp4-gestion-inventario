@@ -57,7 +57,6 @@ class DeviceService {
       }
     }
   
-    // Método opcional: Obtener dispositivos asignados a un usuario específico
     async getDevicesByUser(userId: string): Promise<IDevice[]> {
       return await Device.find({ assignedTo: userId });
     }

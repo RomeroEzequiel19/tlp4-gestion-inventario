@@ -45,7 +45,6 @@ export const UserProvider = ({ children }) => {
         localStorage.getItem("token")
       );
       agregateUser(data);
-      console.log(users);
     } catch (error) {
       console.error("Error al obtener datos del servidor:", error);
     }

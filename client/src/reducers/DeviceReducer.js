@@ -1,14 +1,18 @@
-import { ACTIONS } from "../types/type";
+import { typeList } from "../types/type";
 
 export const DeviceReducer = (state, action) => {
-  switch (action.ACTIONS) {
-    case ACTIONS.ADD:
+  switch (action.type) {
+
+    case typeList.LIST:
+      return action.payload;
+
+    case typeList.LIST_ADD:
       return [...state, action.payload];
 
-    case ACTIONS.DELETE:
+    case typeList.LIST_DELETE:
       return state.filter((device) => device.id !== action.payload);
 
-    case ACTIONS.UPDATE:
+    case typeList.LIST_UPDATE:
       return state.map((device) => {
         if (device.id == action.payload.id) {
           device = {
