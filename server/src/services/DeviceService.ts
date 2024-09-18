@@ -57,9 +57,6 @@ class DeviceService {
       }
     }
   
-    async getDevicesByUser(userId: string): Promise<IDevice[]> {
-      return await Device.find({ assignedTo: userId });
-    }
 }
   
 export default new DeviceService();

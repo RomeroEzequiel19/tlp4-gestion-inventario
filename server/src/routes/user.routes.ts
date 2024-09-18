@@ -6,9 +6,9 @@ import roleMiddleware from "../middlewares/Roles";
 const userRoutes: Router = Router();
 
 // Rutas para CRUD de usuarios
-userRoutes.get('/users', authMiddleware, roleMiddleware('admin'), userControllers.ctrlGetAllUsers); 
-userRoutes.get('/users/:id', userControllers.ctrlGetUserById);
-userRoutes.put('/users/:id', userControllers.ctrlUpdateUser);
-userRoutes.delete('/users/:id',authMiddleware, roleMiddleware('admin'), userControllers.ctrlDeleteUser); 
+userRoutes.get('/users', authMiddleware, roleMiddleware(['admin']), userControllers.ctrlGetAllUsers); 
+userRoutes.get('/users/:id', authMiddleware, roleMiddleware(['admin']), userControllers.ctrlGetUserById);
+userRoutes.put('/users/:id',authMiddleware, roleMiddleware(['admin']), userControllers.ctrlUpdateUser);
+userRoutes.delete('/users/:id',authMiddleware, roleMiddleware(['admin']), userControllers.ctrlDeleteUser); 
 
 export default userRoutes
