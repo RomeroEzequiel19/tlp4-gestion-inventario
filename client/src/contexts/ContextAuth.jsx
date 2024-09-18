@@ -5,20 +5,20 @@ import { Auth } from "../types/type";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const token = localStorage.getItem("token") || null;
+    
     const initialState = {
-        isAuthenticated: false,
-        user: null,
-        token
+        isAuthenticated: localStorage.getItem("token") ? true : false,
+        token: localStorage.getItem("token") || null
     }
 
     const [state, dispatch] = useReducer(authReducer, initialState);
+    console.log("Estado: ",state)
 
-    const login = (token, user) => {
+    const login = (token) => {
         localStorage.setItem("token", token);
         dispatch({
             type: Auth.LOGIN,
-            payload: {token, user}
+            payload: {token}
         });
     }
 

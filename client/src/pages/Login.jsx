@@ -20,17 +20,17 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const data = await AuthService.login(email, password);
+      const data = await AuthService.login(form.email, form.password);
 
       // Validamos si el login fue exitoso
-      if (data.user) {
+      if (data.token) {
         handleLoginSuccess(data, reset, navigate, login);
       } else {
         handleLoginFailure(data.message || "Error desconocido");
       }
 
     } catch (error) {
-      alert("Error al iniciar sesión");
+      console.log(error)
     }
   };
   return (
