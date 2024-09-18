@@ -15,19 +15,4 @@ export const AuthService = {
         }
     },
 
-    validToken: async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`${SERVER_PATH.URL_PATH}api/auth/validate-token`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-        });
-        return response.data
-      } catch (error) {
-        console.error("Login error:", error);
-        throw new Error("Get Data Token failed");
-      }
-    }
-
 }

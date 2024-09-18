@@ -4,6 +4,8 @@ import { PublicRoutes } from "./PublicRoutes";
 import { Login } from "../pages/Login";
 import { PrivateRoutes } from "./PrivateRoutes";
 import { Dashboard } from "../pages/Dashboard";
+import { AdminDashboard } from "../pages/AdminDashboard";
+import { UserRoutes } from "./users/UserRoutes";
 
 export const AppRoutes = () => {
   return (
@@ -17,6 +19,8 @@ export const AppRoutes = () => {
         {/* Rutas privadas */}
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/users/*" element={<UserRoutes />} />
         </Route>
 
         {/* Ruta por defecto */}

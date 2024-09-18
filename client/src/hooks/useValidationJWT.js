@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { SERVER_PATH } from '../config/conf';
+import {useNavigate} from "react-router-dom"
 
 export const useValidationToken = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const checkToken = async () => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) {
-                    setError('No token found');
-                    setLoading(false);
-                    return;
+                    
+                    navigate("/login")
                 }
 
                 const response = await axios.get(`${SERVER_PATH.URL_PATH}api/auth/validate-token`, {
@@ -26,10 +27,12 @@ export const useValidationToken = () => {
                 if (response.data.valid) {
                     setUser(response.data.user);
                 } else {
-                    setError('Token inválido');
+                    
+                    navigate("/login")
                 }
             } catch (err) {
-                setError('Error al validar el token');
+                
+                navigate("/login")
             } finally {
                 setLoading(false);
             }
@@ -38,6 +41,6 @@ export const useValidationToken = () => {
         checkToken();
     }, []);
 
-    return { user, loading, error };
+    return { user, loading};
 };
 
