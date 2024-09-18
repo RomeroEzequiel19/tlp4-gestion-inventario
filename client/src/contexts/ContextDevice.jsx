@@ -39,7 +39,11 @@ export const DeviceProvider = ({ children }) => {
 
   const fetchData = async () => {
     try {
-      const data = await fetchDevice("api/devices", "GET", localStorage.getItem("token"));
+      const data = await fetchDevice(
+        "api/devices",
+        "GET",
+        localStorage.getItem("token")
+      );
       agregateDevice(data);
     } catch (error) {
       console.error("Error al obtener datos del servidor:", error);

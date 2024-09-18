@@ -7,6 +7,7 @@ import { Dashboard } from "../pages/Dashboard";
 import { AdminDashboard } from "../pages/AdminDashboard";
 import { UserRoutes } from "./users/UserRoutes";
 import { DevicesRoutes } from "./devices/DevicesRoutes";
+import { MaintenanceRoutes } from "./maintenance/MaintenanceRoutes";
 
 export const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ export const AppRoutes = () => {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/users/*" element={<UserRoutes />} />
           <Route path="/devices/*" element={<DevicesRoutes />} />
+          <Route path="/maintenances/*" element={<MaintenanceRoutes />} />
         </Route>
 
         {/* Ruta por defecto */}

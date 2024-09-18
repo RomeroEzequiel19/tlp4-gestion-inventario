@@ -9,7 +9,7 @@ export const fetchUser = async (route, method, payload, datos) => {
         const response = await fetch(url, {
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${payload}`,
+            Authorization: `Bearer ${payload}`,
           },
         });
         const data = await response.json();
@@ -25,6 +25,7 @@ export const fetchUser = async (route, method, payload, datos) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${payload}`,
           },
           body: JSON.stringify(datos),
         });
@@ -39,9 +40,9 @@ export const fetchUser = async (route, method, payload, datos) => {
       try {
         const response = await fetch(url, {
           method: "PUT",
-          Authorization: `Bearer ${payload}`,
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${payload}`,
           },
           body: JSON.stringify(datos),
         });
@@ -58,7 +59,7 @@ export const fetchUser = async (route, method, payload, datos) => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${payload}`,
+            Authorization: `Bearer ${payload}`,
           },
         });
         const data = await response.json();

@@ -27,6 +27,15 @@ export const AdminDashboard = () => {
                 </div>
               </div>
             </div>
+            <div className="col-md-6 mb-3">
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">Mantenimiento</h5>
+                  <p className="card-text">Aquí puedes gestionar el mantenimiento</p>
+                  <Link className="btn btn-primary" to="/maintenances">Ver</Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

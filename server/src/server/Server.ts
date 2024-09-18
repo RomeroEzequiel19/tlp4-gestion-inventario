@@ -6,6 +6,7 @@ import { dbConnect } from "../db/connect";
 import authRoutes from "../routes/auth.routes";
 import userRoutes from "../routes/user.routes";
 import deviceRoutes from "../routes/device.routes";
+import maintenanceRoutes from "../routes/maintenance.routes";
 
 class Server {
     private app: Application;
@@ -33,6 +34,7 @@ class Server {
         this.app.use("/api", authRoutes)
         this.app.use("/api", userRoutes)
         this.app.use("/api", deviceRoutes)
+        this.app.use("/api", maintenanceRoutes)
     }
 
     listen():void {

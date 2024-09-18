@@ -9,7 +9,9 @@ import { useValidationToken } from "../../hooks/useValidationJWT";
 
 export const CreateDevice = () => {
   const navigate = useNavigate();
-  const { createDevice } = useContext(DeviceContext); 
+  const { createDevice } = useContext(DeviceContext);
+  const { loading, user } = useValidationToken();
+
   const { form, handleInputChange, reset } = useForm({
     name: "",
     type: "Laptop",
@@ -26,14 +28,19 @@ export const CreateDevice = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const newDevice = await fetchUser("api/devices", "POST", null, form);
+      const newDevice = await fetchUser(
+        "api/devices",
+        "POST",
+        localStorage.getItem("token"),
+        form
+      );
       createDevice(newDevice);
       Swal.fire({
         icon: "success",
         title: "Dispositivo creado",
         text: newDevice.message,
       });
-      navigate("/devices"); 
+      navigate("/devices");
       reset();
     } catch (error) {
       console.error("Error: " + error);
@@ -45,11 +52,15 @@ export const CreateDevice = () => {
     }
   };
 
+  if (loading) return <div>Cargando...</div>;
   return (
     <>
       <Header />
       <main className="d-flex flex-column justify-content-center align-items-center min-vh-100">
-        <div className="text-center w-100 shadow-lg p-5" style={{ maxWidth: '600px' }}>
+        <div
+          className="text-center w-100 shadow-lg p-5"
+          style={{ maxWidth: "600px" }}
+        >
           <h2 className="h3 mb-3 text-primary font-weight-bold">
             Crear Dispositivo
           </h2>
@@ -58,7 +69,9 @@ export const CreateDevice = () => {
           </p>
           <form className="w-100" onSubmit={handleSubmit}>
             <div className="form-group mb-3">
-              <label htmlFor="name" className="text-left d-block">Nombre <span className="text-danger">*</span></label>
+              <label htmlFor="name" className="text-left d-block">
+                Nombre <span className="text-danger">*</span>
+              </label>
               <input
                 type="text"
                 name="name"
@@ -71,7 +84,9 @@ export const CreateDevice = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="type" className="text-left d-block">Tipo <span className="text-danger">*</span></label>
+              <label htmlFor="type" className="text-left d-block">
+                Tipo <span className="text-danger">*</span>
+              </label>
               <select
                 name="type"
                 id="type"
@@ -87,7 +102,9 @@ export const CreateDevice = () => {
               </select>
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="brand" className="text-left d-block">Marca <span className="text-danger">*</span></label>
+              <label htmlFor="brand" className="text-left d-block">
+                Marca <span className="text-danger">*</span>
+              </label>
               <input
                 type="text"
                 name="brand"
@@ -100,7 +117,9 @@ export const CreateDevice = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="deviceModel" className="text-left d-block">Modelo <span className="text-danger">*</span></label>
+              <label htmlFor="deviceModel" className="text-left d-block">
+                Modelo <span className="text-danger">*</span>
+              </label>
               <input
                 type="text"
                 name="deviceModel"
@@ -113,7 +132,9 @@ export const CreateDevice = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="serialNumber" className="text-left d-block">Número de Serie <span className="text-danger">*</span></label>
+              <label htmlFor="serialNumber" className="text-left d-block">
+                Número de Serie <span className="text-danger">*</span>
+              </label>
               <input
                 type="text"
                 name="serialNumber"
@@ -126,7 +147,9 @@ export const CreateDevice = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="purchaseDate" className="text-left d-block">Fecha de Compra <span className="text-danger">*</span></label>
+              <label htmlFor="purchaseDate" className="text-left d-block">
+                Fecha de Compra <span className="text-danger">*</span>
+              </label>
               <input
                 type="date"
                 name="purchaseDate"
@@ -138,7 +161,10 @@ export const CreateDevice = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="warrantyExpiration" className="text-left d-block">Fecha de Expiración de Garantía <span className="text-danger">*</span></label>
+              <label htmlFor="warrantyExpiration" className="text-left d-block">
+                Fecha de Expiración de Garantía{" "}
+                <span className="text-danger">*</span>
+              </label>
               <input
                 type="date"
                 name="warrantyExpiration"
@@ -150,7 +176,9 @@ export const CreateDevice = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="location" className="text-left d-block">Ubicación <span className="text-danger">*</span></label>
+              <label htmlFor="location" className="text-left d-block">
+                Ubicación <span className="text-danger">*</span>
+              </label>
               <input
                 type="text"
                 name="location"
@@ -163,7 +191,9 @@ export const CreateDevice = () => {
               />
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="status" className="text-left d-block">Estado <span className="text-danger">*</span></label>
+              <label htmlFor="status" className="text-left d-block">
+                Estado <span className="text-danger">*</span>
+              </label>
               <select
                 name="status"
                 id="status"
@@ -178,14 +208,16 @@ export const CreateDevice = () => {
               </select>
             </div>
             <div className="form-group mb-3 d-none">
-              <label htmlFor="assignedTo" className="text-left d-block">Asignado a (ID de Usuario)</label>
+              <label htmlFor="assignedTo" className="text-left d-block">
+                Asignado a (ID de Usuario)
+              </label>
               <input
                 type="text"
                 name="assignedTo"
                 id="assignedTo"
                 placeholder="Ingrese el ID del usuario asignado"
                 className="form-control w-100"
-                value={form.assignedTo}
+                value={user._id}
                 onChange={handleInputChange}
               />
             </div>
