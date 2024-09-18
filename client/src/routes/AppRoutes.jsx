@@ -8,6 +8,7 @@ import { AdminDashboard } from "../pages/AdminDashboard";
 import { UserRoutes } from "./users/UserRoutes";
 import { DevicesRoutes } from "./devices/DevicesRoutes";
 import { MaintenanceRoutes } from "./maintenance/MaintenanceRoutes";
+import { UserDashboard } from "../pages/UserDashboard";
 
 export const AppRoutes = () => {
   return (
@@ -22,6 +23,7 @@ export const AppRoutes = () => {
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="/users/*" element={<UserRoutes />} />
           <Route path="/devices/*" element={<DevicesRoutes />} />
           <Route path="/maintenances/*" element={<MaintenanceRoutes />} />
