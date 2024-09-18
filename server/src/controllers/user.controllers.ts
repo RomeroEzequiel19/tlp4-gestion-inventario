@@ -50,7 +50,7 @@ class UserController {
   async ctrlDeleteUser(req: Request, res: Response): Promise<Response> {
     try {
       await UserService.deleteUser(req.params.id);
-      return res.status(204).json({message: "Eliminado correctamente"});
+      return res.status(200).json({message: "Eliminado correctamente"});
     } catch (error: any) {
       return res.status(404).json({ message: "Error interno en el servidor" });
     }

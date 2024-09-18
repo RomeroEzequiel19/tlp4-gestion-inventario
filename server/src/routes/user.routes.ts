@@ -9,6 +9,6 @@ const userRoutes: Router = Router();
 userRoutes.get('/users', authMiddleware, roleMiddleware('admin'), userControllers.ctrlGetAllUsers); 
 userRoutes.get('/users/:id', userControllers.ctrlGetUserById);
 userRoutes.put('/users/:id', userControllers.ctrlUpdateUser);
-userRoutes.delete('/users/:id', roleMiddleware('admin'), userControllers.ctrlDeleteUser); 
+userRoutes.delete('/users/:id',authMiddleware, roleMiddleware('admin'), userControllers.ctrlDeleteUser); 
 
 export default userRoutes

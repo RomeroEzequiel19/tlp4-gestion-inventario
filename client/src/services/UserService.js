@@ -1,6 +1,6 @@
 import { SERVER_PATH } from "../config/conf";
 
-export const fetchUser = async (route, method, payload) => {
+export const fetchUser = async (route, method, payload, datos) => {
   const url = `${SERVER_PATH.URL_PATH}${route}`;
 
   switch (method) {
@@ -9,7 +9,7 @@ export const fetchUser = async (route, method, payload) => {
         const response = await fetch(url, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${payload}`,
+            "Authorization": `Bearer ${payload}`,
           },
         });
         const data = await response.json();
@@ -26,7 +26,7 @@ export const fetchUser = async (route, method, payload) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(payload),
+          body: JSON.stringify(datos),
         });
         const data = await response.json();
         return data;
@@ -39,10 +39,11 @@ export const fetchUser = async (route, method, payload) => {
       try {
         const response = await fetch(url, {
           method: "PUT",
+          Authorization: `Bearer ${payload}`,
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(payload),
+          body: JSON.stringify(datos),
         });
         const data = await response.json();
         return data;
@@ -55,6 +56,10 @@ export const fetchUser = async (route, method, payload) => {
       try {
         const response = await fetch(url, {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${payload}`,
+          },
         });
         const data = await response.json();
         return data;

@@ -50,7 +50,6 @@ export const ctrlAuthLogin = async (req: Request, res: Response): Promise<Respon
 
 export const validateToken = async(req: Request, res: Response) => {
     const token = req.headers.authorization?.split(' ')[1]; 
-    console.log("TOKENNNN:", token)
 
     if (!token) {
         return res.status(401).json({ message: 'Token no proporcionado' });

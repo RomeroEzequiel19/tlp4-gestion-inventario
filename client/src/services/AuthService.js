@@ -6,7 +6,6 @@ export const AuthService = {
     login: async (email, password) => {
         try {
           const response = await axios.post(`${SERVER_PATH.URL_PATH}api/auth/login`, { email, password });
-          console.log("Datos despues de consulta:", response.data)
           return response.data;
         } catch (error)
         {
